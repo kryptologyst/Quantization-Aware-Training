@@ -1,0 +1,49 @@
+# Quantization-Aware Training Configuration
+
+# Model Configuration
+model:
+  input_size: 784  # 28*28 for MNIST
+  hidden_sizes: [256, 128]
+  output_size: 10
+  dropout_rate: 0.2
+
+# Training Configuration
+training:
+  batch_size: 64
+  test_batch_size: 1000
+  epochs: 10
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  scheduler_step_size: 5
+  scheduler_gamma: 0.5
+
+# Quantization Configuration
+quantization:
+  backend: "fbgemm"  # or "qnnpack" for ARM
+  observer_type: "histogram"
+  quantize_activations: true
+  quantize_weights: true
+  calibration_samples: 100
+
+# Data Configuration
+data:
+  dataset: "MNIST"
+  data_dir: "./data"
+  download: true
+  normalize: true
+  augment: false
+
+# Logging Configuration
+logging:
+  log_dir: "./logs"
+  use_tensorboard: true
+  use_wandb: false
+  log_interval: 100
+  save_model: true
+  model_save_path: "./models"
+
+# UI Configuration
+ui:
+  port: 8501
+  host: "localhost"
+  debug: false
